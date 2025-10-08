@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 
 function buildTaskMap(ganttSnapshot) {
   return ganttSnapshot.data
-    .map((t) => `${t.id}  ${t.text}`)
+    .map((t) => `${t.id} | ${t.text} | ${t.start_date} | ${t.end_date} | ${t.duration} | ${t.progress} | ${t.parent}`)
     .slice(0, 150)
     .join("\n");
 }
@@ -76,6 +76,7 @@ Key requirements for project generation:
 When generating projects - make a quick summary of a project in your reply.
 When you refer to an EXISTING task, use its id.
 Here is the current reference list:
+id | text | start_date | end_date | duration | progress | parent
 ${taskMap}
 
 When you refer to an EXISTING link, use its id, source and target to find the necessary link.

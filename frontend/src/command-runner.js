@@ -9,7 +9,29 @@ export default function (gantt) {
         break;
 
       case "update_task":
-        Object.assign(gantt.getTask(args.id), args);
+        const changes = {...args};
+        if(changes.start_date){
+          changes.start_date = gantt.templates.parse_date(changes.start_date);
+        }
+        if(changes.end_date){
+          changes.end_date = gantt.templates.parse_date(changes.end_date);
+        }
+
+        if(changes.start_date && changes.duration){
+          changes.end_date = gantt.calculateEndDate({
+            start_date: changes.start_date,
+            duration: changes.duration,
+            task: gantt.getTask(args.id)
+          });
+        } else if (changes.end_date && changes.duration){
+          changes.start_date = gantt.calculateEndDate({
+            start_date: changes.end_date,
+            duration: -changes.duration,
+            task: gantt.getTask(args.id)
+          });
+        }
+
+        Object.assign(gantt.getTask(args.id), changes);
         gantt.updateTask(args.id);
         break;
 
