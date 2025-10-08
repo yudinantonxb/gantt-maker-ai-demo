@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css" rel="stylesheet">
+    <link href="./src/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natural Language Interface for DHTMLX Gantt</title>
+  </head>
+  <style></style>
+  <body>
+    <div id="wrapper">
+      <div id="gantt_here" class="gantt-container"></div>
+      <aside id="chat_panel"></aside>
+    </div>
+
+    <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+      <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+          <header class="modal__header">
+            <h2 class="modal__title" id="modal-1-title">Command Guide</h2>
+            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+          </header>
+           <div class="modal__body-wrapper">
+    <main class="modal__content" id="modal-1-content">
+            <!-- NAVIGATION LINKS -->
+            <nav class="modal__nav">
+              <ul>
+                <li><a href="#section-project-actions">Project-level Actions</a></li>
+                <li><a href="#section-task-crud">Task CRUD</a></li>
+                <li><a href="#section-dependencies">Dependencies</a></li>
+                <li><a href="#section-view">View</a></li>
+                <li><a href="#section-styling">Styling</a></li>
+                <li><a href="#section-scheduling">Scheduling</a></li>
+                <li><a href="#section-system">System</a></li>
+              </ul>
+            </nav>
+
+            <section id="section-project-actions">
+              <h3>Project-level Actions</h3>
+              <div class="cmd">
+                <strong>generate_project</strong>
+                <p>Create a full project (tasks + links) from a description.</p>
+                <b>Prompt example:</b>
+                <code>Generate a project called Website Relaunch with Design and QA phases.</code>
+                <button
+                  class="copy-btn"
+                  data-text="Generate a project called Website Relaunch with Design and QA phases."
+                >
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>clear_all</strong>
+                <p>Clear all tasks, links, markers, and layers from the Gantt.</p>
+                <b>Prompt example:</b>
+                <code>Clear all data in the Gantt Chart.</code>
+                <button class="copy-btn" data-text="Clear all data in the Gantt Chart.">Copy</button>
+              </div>
+            </section>
+
+            <!-- TASK CRUD -->
+            <section id="section-task-crud">
+              <h3>Task CRUD</h3>
+              <div class="cmd">
+                <strong>add_task</strong>
+                Create a new task.
+                <b>Prompt example:</b> <code>Create task "Design mock-ups" starting 2025-09-01 duration 7.</code>
+                <button class="copy-btn" data-text='Create task "Design mock-ups" starting 2025-09-01 duration 7.'>
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>update_task</strong>
+                Modify an existing task.
+                <b>Prompt example:</b> <code>Set task "Design mock-ups" text to "Design mockups".</code>
+                <button class="copy-btn" data-text='Set task "Design mock-ups" text to "Design mockups".'>Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>delete_task</strong>
+                Remove a task by ID.
+                <b>Prompt example:</b> <code>Delete task "Design mock-ups".</code>
+                <button class="copy-btn" data-text='Delete task "Design mock-ups".'>Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>split_task</strong>
+                Split one task into subtasks.
+                <b>Prompt example:</b> <code>Split Design into Wireframes, Mock-ups, Assets and link them FS.</code>
+                <button class="copy-btn" data-text="Split Design into Wireframes, Mock-ups, Assets and link them FS.">
+                  Copy
+                </button>
+              </div>
+            </section>
+
+            <!-- DEPENDENCIES -->
+            <section id="section-dependencies">
+              <h3>Dependencies</h3>
+              <div class="cmd">
+                <strong>add_link</strong>
+                Link two tasks (e.g. finish-to-start).
+                <b>Prompt example:</b> <code>Link task "Design" to task "Web Development" finish-to-start.</code>
+                <button class="copy-btn" data-text='Link task "Design" to task "Web Development" finish-to-start.'>
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>delete_link</strong>
+                Remove a dependency.
+                <b>Prompt example:</b> <code>Delete link between tasks "Design" and "Web Development".</code>
+                <button class="copy-btn" data-text='Delete link between tasks "Design" and "Web Development".'>
+                  Copy
+                </button>
+              </div>
+            </section>
+
+            <!-- VIEW -->
+            <section id="section-view">
+            <section id="section-view">
+              <h3>View</h3>
+              <div class="cmd">
+                <strong>set_skin</strong>
+                Set chart theme: terrace, dark, material, contrast-white, contrast-black, skyblue, meadow, broadway.
+                <b>Prompt example:</b> <code>Set the material skin to the Gantt Chart.</code>
+                <button class="copy-btn" data-text="Set the material skin to the Gantt Chart.">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>zoom</strong>
+                Change timeline zoom (hour, day, week, month, quarter, year, fit).
+                <b>Prompt example:</b> <code>Zoom to month view.</code>
+                <button class="copy-btn" data-text="Zoom to month view.">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>set_scales</strong>
+                Customize timeline scales and highlight weekends.
+                <b>Prompt example:</b>
+                <code
+                  >I want two scales: months on top, days on the bottom, and highlight weekends. Days should be in the
+                  format %d %D and months - %F %Y.</code
+                >
+                <button
+                  class="copy-btn"
+                  data-text="I want two scales: months on top, days on the bottom, and highlight weekends. Days should be in the format %d %D and months - %F %Y."
+                >
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>hide_weekdays</strong>
+                Hide specific weekdays (0=Sunday ... 6=Saturday).
+                <b>Prompt example:</b> <code>Hide weekends (0 and 6).</code>
+                <button class="copy-btn" data-text="Hide weekends (0 and 6).">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>set_task_tooltip</strong>
+                Enable or disable the tooltip for the tasks
+                <b>Prompt example:</b> <code>Disable tooltips for the tasks</code>
+                <button class="copy-btn" data-text="Disable tooltips for the tasks">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>add_marker</strong>
+                Add a marker to the timeline area (e.g. highlight a date).
+                <b>Prompt example:</b> <code>Add the timeline marker with the label "Today" and today's date</code>
+                <button class="copy-btn" data-text="Add the timeline marker with the label 'Today' and today's date">
+                  Copy
+                </button>
+              </div>
+            </section>
+
+            <!-- STYLING -->
+            <section id="section-styling">
+            <section id="section-styling">
+              <h3>Styling</h3>
+              <div class="cmd">
+                <strong>style_task</strong>
+                Change task bar color.
+                <b>Prompt example:</b> <code>Make task "Design Review" red.</code>
+                <button class="copy-btn" data-text='Make task "Design Review" red.'>Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>set_text_color</strong>
+                Change text color inside task bar.
+                <b>Prompt example:</b> <code>Set task "Design Review" text color to blue.</code>
+                <button class="copy-btn" data-text='Set task "Design Review" text color to blue.'>Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>set_progress_color</strong>
+                Change task progress bar color.
+                <b>Prompt example:</b> <code>Change progress color of task "Design Review" to green.</code>
+                <button class="copy-btn" data-text='Change progress color of task "Design Review" to green.'>
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>style_link</strong>
+                Change dependency link color.
+                <b>Prompt example:</b> <code>Set the color of the link between the 3rd and 4th tasks to orange.</code>
+                <button class="copy-btn" data-text="Set the color of the link between the 3rd and 4th tasks to orange.">
+                  Copy
+                </button>
+              </div>
+              <div class="cmd">
+                <strong>set_link_width</strong>
+                Change link thickness.
+                <b>Prompt example:</b> <code>Set link width to 4.</code>
+                <button class="copy-btn" data-text="Set link width to 4.">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>show_links</strong>
+                Show or hide all dependency links.
+                <b>Prompt example:</b> <code>Hide links.</code>
+                <button class="copy-btn" data-text="Hide links.">Copy</button>
+              </div>
+            </section>
+
+            <!-- SCHEDULING -->
+            <section id="section-scheduling">
+            <section id="section-scheduling">
+              <h3>Scheduling</h3>
+              <div class="cmd">
+                <strong>autoschedule</strong>
+                Run auto-scheduling for project.
+                <b>Prompt example:</b> <code>Autoschedule from task 2.</code>
+                <button class="copy-btn" data-text="Autoschedule from task 2.">Copy</button>
+              </div>
+            </section>
+
+            <!-- SYSTEM -->
+            <section id="section-system">
+              <h3>System</h3>
+              <div class="cmd">
+                <strong>undo</strong>
+                Undo last action.
+                <b>Prompt example:</b> <code>Undo last change.</code>
+                <button class="copy-btn" data-text="Undo last change.">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>export_png</strong>
+                Export chart as PNG.
+                <b>Prompt example:</b> <code>Export chart to gantt.png.</code>
+                <button class="copy-btn" data-text="Export chart to gantt.png.">Copy</button>
+              </div>
+              <div class="cmd">
+                <strong>export_to_pdf</strong>
+                Export chart as PDF.
+                <b>Prompt example:</b> <code>Export chart to report.pdf.</code>
+                <button class="copy-btn" data-text="Export chart to report.pdf.">Copy</button>
+              </div>
+            </section>
+          </main>
+    <button id="btn-scroll-top" class="scroll-top-btn" title="Back to top">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#fff" d="m488.832 344.32-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z"></path></g></svg>
+    </button>
+  </div>
+         </div>
+      </div>
+    </div>
+
+      <!-- START: Added Footer -->
+    <div class="dhx_demo-footer">
+        <div class="dhx_layout-cell-content">
+            <a href="https://dhtmlx.com/docs/demo/grid-ai-review-analysis/" title="Previous Demo" class="dhx_slider-btn dhx_slider-btn--prev">
+                <svg width="15" height="15" viewBox="0 0 15 15"><path d="M0.820312 6.67969V8.32031H10.8203L6.25 12.9297L7.42188 14.1016L14.0234 7.5L7.42188 0.898438L6.25 2.07031L10.8203 6.67969H0.820312Z" fill="#fff"></path></svg>
+            </a>
+            <a href="https://docs.dhtmlx.com/docs/demo/form-builder-ai/" title="Next Demo" class="dhx_slider-btn dhx_slider-btn--next">
+                <svg width="15" height="15" viewBox="0 0 15 15"><path d="M0.820312 6.67969V8.32031H10.8203L6.25 12.9297L7.42188 14.1016L14.0234 7.5L7.42188 0.898438L6.25 2.07031L10.8203 6.67969H0.820312Z" fill="#fff"></path></svg>
+            </a>
+            <div class="dhx_demo-footer-text">
+                <h1>AI Helper for DHTMLX Gantt.</h1>
+                <p>Your AI assistant for managing <a href="https://dhtmlx.com/docs/products/dhtmlxGantt/" target="_blank">DHTMLX Gantt</a> from text.</p>
+            </div>
+            <a href="https://github.com/DHTMLX/gantt-maker-ai-demo" class="dhx_sample-btn dhx_sample-btn--cta" target="_blank">View on GitHub</a>
+        </div>
+    </div>
+    <!-- END: Added Footer -->
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
