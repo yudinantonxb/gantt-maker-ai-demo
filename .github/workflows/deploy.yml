@@ -38,4 +38,4 @@ jobs:
     steps:
       - name: Trigger remote webhook
         run: |
-          curl -s "${{ secrets.WEBHOOK_URL }}?token=${{ secrets.RESTART_HOOK_TOKEN }}&project=${{ env.PROJECT_NAME }}"
+          curl -s "${{ secrets.WEBHOOK_URL }}?token=${{ secrets.RESTART_HOOK_TOKEN }}&project=${{ env.PROJECT_NAME }}&branch=main"
